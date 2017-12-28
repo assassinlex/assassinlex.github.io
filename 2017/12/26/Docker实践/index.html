@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" >
+    <title>
+        
+        Docker实践 · assassinlex的个人博客
+        
+    </title>
+    <link rel="icon" href= /assests/favicon.ico>
+    <!-- TODO: 在font-face加载完毕后改变字体  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js"></script>
+    <!-- 提前加载place holder  -->
+    <style type="text/css">
+        @font-face {
+            font-family: 'Oswald-Regular';
+            src: url(/font/Oswald-Regular.ttf);
+        }
+    </style>
+    <style type="text/css">
+        .site-intro-placeholder {
+            position: absolute;
+            z-index: -2;
+            top: 0;
+            left: 0px;
+            width: calc(100% + 300px);
+            height: 100%;
+            background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+            background-position: center center;
+            transform: translate3d(-226px, 0, 0);
+            animation: gradient-move 2.5s ease-out 0s 1;
+        }
+        @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+</style>
+    <link rel="stylesheet" href = /css/style.css?v=20171020 />
+    <script src="//cdn.staticfile.org/jquery/3.2.1/jquery.min.js" defer></script>
+    
+    <script src="/scripts/main.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >lex</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">Docker实践</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>lex</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-img" style="background-image: url(http://oumn0o088.bkt.clouddn.com/post-bg.jpg)"></div>
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            Docker实践
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <!-- 文章页标签  -->
+            
+                <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-href = Docker>Docker</a>
+    
+</div>
+            
+            <div class="post-intro-meta">
+                <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                <span class="post-intro-time">2017/12/26</span>
+            </div>
+        
+    </div>
+</div>
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <script>
+            var browser = {
+                    versions: function () {
+                        var u = window.navigator.userAgent;
+                        return {
+                            userAgent: u,
+                            trident: u.indexOf('Trident') > -1, //IE内核
+                            presto: u.indexOf('Presto') > -1, //opera内核
+                            webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+                            gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+                            mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+                            ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+                            android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+                            iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+                            iPad: u.indexOf('iPad') > -1, //是否为iPad
+                            webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+                            weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+                            uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+                        };
+                    }()
+                }
+
+            function fontLoaded(){
+                console.log('font loaded');
+                if (document.getElementsByClassName('site-intro-meta')) {
+                    document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+                    document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+                    var postIntroTags = document.getElementsByClassName('post-intro-tags')[0],
+                        postIntroMeat = document.getElementsByClassName('post-intro-meta')[0];
+                        if (postIntroTags) {
+                            postIntroTags.classList.add('post-fade-in');
+                        }
+                        if (postIntroMeat) {
+                            postIntroMeat.classList.add('post-fade-in');
+                        }
+                    }
+                }
+                
+            console.log("userAgent:" + browser.versions.userAgent);
+            // UC不支持跨域，所以直接显示
+            if (browser.versions.uc) {
+                console.log("UCBrowser");
+                fontLoaded();
+            } else {
+                WebFont.load({
+                    custom: {
+                        families: ['Oswald-Regular']
+                    },
+                    loading: function () {  //所有字体开始加载
+                        // console.log('loading');
+                    },
+                    active: function () {  //所有字体已渲染
+                        fontLoaded();
+                    },
+                    inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+                        console.log('inactive: timeout');
+                        fontLoaded();
+                    },
+                    timeout: 7000 // Set the timeout to two seconds
+                });
+            }
+        </script>
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <p>由于笔记本装的是最新版本的php7.2，导致一些老项目无法运行，今天就做了一个lamp的镜像，顺便学习了一下微软的SQL Server-for-Linux的镜像，这里就分享一下。</p>
+<p>php需要特殊的远古版本5.3，且web服务器用的是apache而不是nginx，所以apache和php是在基础镜像的基础上自定义安装的，mysql是独自另外一个镜像。原本打算mysql也和php装在一个镜像中，这样每次只需要启动一个容器就可以了，但是由于技术不到家，当装完amp三件套后保存为新的镜像，启动容器时mysqld总是无法启动，进入shell查看原因时发现是无法更新进程文件导致的，但是我用以前的修改my.cnf配置文件中的pid-file选项和修改目录权限的操作后，依然无法解决这个问题，就使用独立mysql镜像来解决。</p>
+<h3 id="LAMP镜像"><a href="#LAMP镜像" class="headerlink" title="LAMP镜像"></a>LAMP镜像</h3><h4 id="基础镜像"><a href="#基础镜像" class="headerlink" title="基础镜像"></a>基础镜像</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> docker pull centos		# 拉取 centos 官方最新镜像</span><br><span class="line"><span class="meta">$</span> docker pull mysql		# 拉取 mysql 官方最新镜像</span><br><span class="line"><span class="meta">$</span> docker run -it centos		# 启动容器并登录到容器终端</span><br></pre></td></tr></table></figure>
+<h4 id="LAMP服务搭建"><a href="#LAMP服务搭建" class="headerlink" title="LAMP服务搭建"></a>LAMP服务搭建</h4><h5 id="Apache"><a href="#Apache" class="headerlink" title="Apache"></a>Apache</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 进入临时目录</span><br><span class="line"><span class="meta">$</span> cd /tmp</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 安装编译器</span><br><span class="line"><span class="meta">$</span> yum install -y gcc gcc-c++ automake autoconf libtool make</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 下载 apache 源码包和 apr、apr-util 等依赖 [下载地址可能会变动，请遵照最新地址]</span><br><span class="line"><span class="meta">$</span> wget http://mirrors.tuna.tsinghua.edu.cn/apache//httpd/httpd-2.4.29.tar.gz</span><br><span class="line"><span class="meta">$</span> wget http://mirrors.hust.edu.cn/apache//apr/apr-1.6.3.tar.gz</span><br><span class="line"><span class="meta">$</span> wget http://mirrors.hust.edu.cn/apache//apr/apr-util-1.6.1.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 安装其他依赖</span><br><span class="line"><span class="meta">$</span> yum install -y pcre pcre-devel openssl openssl-devel</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 解压各项下载</span><br><span class="line"><span class="meta">$</span> tar xzf httpd-2.4.29.tar.gz</span><br><span class="line"><span class="meta">$</span> tar xzf apr-1.6.3.tar.gz</span><br><span class="line"><span class="meta">$</span> tar xzf apr-util-1.6.1.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 编译安装 [注意安装顺序]</span><br><span class="line"><span class="meta">#</span># apr</span><br><span class="line"><span class="meta">$</span> cd /tmp/apr-1.6.3</span><br><span class="line"><span class="meta">$</span> ./configure --prefix=/usr/local/apr</span><br><span class="line"><span class="meta">$</span> make &amp;&amp; make install</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span># apr-util</span><br><span class="line"><span class="meta">$</span> cd /tmp/apr-util-1.6.1</span><br><span class="line"><span class="meta">$</span> ./configure --prefix=/usr/local/apr-util --with-apr=/usr/local/apr</span><br><span class="line"><span class="meta">$</span> make &amp;&amp; make install</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span># apache</span><br><span class="line"><span class="meta">$</span> cd /tmp/httpd-2.4.29</span><br><span class="line"><span class="meta">$</span> ./configure \</span><br><span class="line">  --prefix=/usr/local/apache2.4 \</span><br><span class="line">  --sysconfdir=/usr/local/apache2.4/conf \</span><br><span class="line">  --enable-so \</span><br><span class="line">  --enable-ssl \</span><br><span class="line">  --enable-cgi \</span><br><span class="line">  --enable-rewrite \</span><br><span class="line">  --with-zlib \</span><br><span class="line">  --with-apr=/usr/local/apr \</span><br><span class="line">  --with-apr-util=/usr/local/apr-util \</span><br><span class="line">  --enable-mods-shared=most \</span><br><span class="line">  --enable-mpms-shared=all \</span><br><span class="line">  --with-mpm=prefork</span><br><span class="line">  make &amp;&amp; make install</span><br><span class="line">  </span><br><span class="line"><span class="meta">#</span> 到此安装 apache 完成</span><br></pre></td></tr></table></figure>
+<h5 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 这里选择比较老旧的 5.3 版本</span><br><span class="line"><span class="meta">$</span> cd /tmp</span><br><span class="line"><span class="meta">$</span> wget http://museum.php.net/php5/php-5.3.29.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 安装扩展包更新包 [之后的某些依赖需要这个包]</span><br><span class="line">yum install -y epel-release</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 安装依赖 [像 openssl 这种其实上面已经安装过，这里给需要单独安装的同学列出来]</span><br><span class="line"><span class="meta">$</span> yum install -y zlib-devel libxml2 libxml2-devel libjpeg-turbo-devel \</span><br><span class="line">  freetype-devel libjpeg-devel libpng-devel gd-devel libcurl-devel libxslt-devel \</span><br><span class="line">  libmcrypt libmcrypt-devel mcrypt mhash  \</span><br><span class="line">  openssl openssl-devel curl-devel</span><br><span class="line">  </span><br><span class="line"><span class="meta">#</span> libiconv 依赖安装</span><br><span class="line"><span class="meta">$</span> wget https://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.15.tar.gz</span><br><span class="line"><span class="meta">$</span> tar xzf libiconv-1.15.tar.gz</span><br><span class="line"><span class="meta">$</span> cd /tmp/libiconv-1.15</span><br><span class="line"><span class="meta">$</span> ./configure --prefix=/usr/local/libiconv</span><br><span class="line"><span class="meta">$</span> make &amp;&amp; make install</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 配置编译 [单独编译安装需要注意 --with-apxs2 这项要注意]</span><br><span class="line"><span class="meta">$</span> cd /tmp/php-5.3.29</span><br><span class="line"><span class="meta">$</span> ./configure \</span><br><span class="line">  --prefix=/usr/local/php5.3 \</span><br><span class="line">  --with-config-file-path=/usr/local/php5.3/etc \</span><br><span class="line">  --with-apxs2=/usr/local/apache2.4/bin/apxs \</span><br><span class="line">  --enable-inline-optimization \</span><br><span class="line">  --disable-debug \</span><br><span class="line">  --disable-rpath \</span><br><span class="line">  --enable-shared \</span><br><span class="line">  --enable-opcache \</span><br><span class="line">  --with-fpm-user=www \</span><br><span class="line">  --with-fpm-group=www \</span><br><span class="line">  --with-mysql=mysqlnd \</span><br><span class="line">  --with-mysqli=mysqlnd \</span><br><span class="line">  --with-pdo-mysql=mysqlnd \</span><br><span class="line">  --with-gettext \</span><br><span class="line">  --enable-mbstring \</span><br><span class="line">  --with-iconv \</span><br><span class="line">  --with-mhash \</span><br><span class="line">  --with-mcrypt \</span><br><span class="line">  --with-openssl \</span><br><span class="line">  --enable-bcmath \</span><br><span class="line">  --enable-soap \</span><br><span class="line">  --with-libxml-dir \</span><br><span class="line">  --enable-pcntl \</span><br><span class="line">  --enable-shmop \</span><br><span class="line">  --enable-sysvmsg \</span><br><span class="line">  --enable-sysvsem \</span><br><span class="line">  --enable-sysvshm \</span><br><span class="line">  --enable-sockets \</span><br><span class="line">  --with-curl \</span><br><span class="line">  --with-zlib \</span><br><span class="line">  --enable-zip \</span><br><span class="line">  --with-bz2 \</span><br><span class="line">  --with-readline \</span><br><span class="line">  --without-sqlite3 \</span><br><span class="line">  --without-pdo-sqlite \</span><br><span class="line">  --with-pear</span><br><span class="line">  make &amp;&amp; make install</span><br><span class="line">  </span><br><span class="line"><span class="meta">#</span> 到此 php 安装完成</span><br></pre></td></tr></table></figure>
+<h3 id="LAMP的相关配置"><a href="#LAMP的相关配置" class="headerlink" title="LAMP的相关配置"></a>LAMP的相关配置</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> Apache 配置</span><br><span class="line"><span class="meta">#</span> 添加 Apache 对 PHP 的模块并启动 apache</span><br><span class="line"><span class="meta">$</span> cd /usr/local/apache2.4</span><br><span class="line"><span class="meta">$</span> vim conf/httpd.conf</span><br><span class="line"><span class="meta">#</span> 添加以下内容</span><br><span class="line"><span class="meta">#</span></span><br><span class="line"><span class="meta">#</span> &lt;FilesMatch \.php$&gt;</span><br><span class="line"><span class="meta">#</span>    SetHandler application/x-httpd-php</span><br><span class="line"><span class="meta">#</span> &lt;/FilesMatch&gt;</span><br><span class="line"><span class="meta">#</span></span><br><span class="line"><span class="meta">#</span> 在以下内容中添加 index.php</span><br><span class="line"><span class="meta">#</span></span><br><span class="line"><span class="meta">#</span> &lt;IfModule dir_module&gt;</span><br><span class="line"><span class="meta">#</span>    DirectoryIndex index.html ndex.php</span><br><span class="line"><span class="meta">#</span> &lt;/IfModule&gt;</span><br><span class="line"><span class="meta">#</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 修改完成后记得重启 httpd 服务</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> PHP配置文件</span><br><span class="line"><span class="meta">$</span> cd /tmp/php-5.3.29</span><br><span class="line"><span class="meta">$</span> cp php.ini-development /usr/local/php5.3/etc/		# 每次修改了配置文件记得重启 Apache</span><br></pre></td></tr></table></figure>
+<h3 id="检测环境"><a href="#检测环境" class="headerlink" title="检测环境"></a>检测环境</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> apache</span><br><span class="line"><span class="meta">$</span> curl localhost		# 正常应当获取网站根目录信息</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> php</span><br><span class="line"><span class="meta">$</span> echo '&lt;?php phpinfo();' &gt; /home/www/index.php		# 假设网站根目录是 /home/www</span><br><span class="line"><span class="meta">$</span> curl localhost		# 正常应该是 phpinfo(); 的信息</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 检测端口号</span><br><span class="line"><span class="meta">$</span> netstat -tlunp		# 此时应该可以看到 80 端口已监听。</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 最后让容器内部服务自启动，添加一个服务启动脚本</span><br><span class="line"><span class="meta">$</span> vim /home/service.sh</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 添加一下三行指令</span><br><span class="line"><span class="meta">#</span>!/bin/bash</span><br><span class="line">/application/apache/bin/apachectl start</span><br><span class="line">/bin/bash</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 第一行shell脚本指定执行对象，没什么好说的</span><br><span class="line"><span class="meta">#</span> 第二行是我指定apache启动httpd服务的指令，若有其他服务，可继续自定义增加</span><br><span class="line"><span class="meta">#</span> 第三行比较重要，其目的是保留一个终端，防止容器执行服务启动后容器自动退出</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 保存退出后给这个shell脚本加上执行权限</span><br><span class="line"><span class="meta">$</span> chmod +x /home/service.sh</span><br></pre></td></tr></table></figure>
+<h3 id="提交"><a href="#提交" class="headerlink" title="提交"></a>提交</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> exit		# 退出容器</span><br><span class="line"><span class="meta">$</span> docker commit -m 'just for learn' container_name username/image_name		# 提交改动</span><br></pre></td></tr></table></figure>
+<h3 id="外部启动容器"><a href="#外部启动容器" class="headerlink" title="外部启动容器"></a>外部启动容器</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 启动 php + apache 服务容器</span><br><span class="line"><span class="meta">$</span> docker run --name php5.3 -p 8080:80 -v yourHost/www:dockerContainer/www -d username/image_name /home/service.sh</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 启动 mysql 容器</span><br><span class="line"><span class="meta">$</span> ddocker run --name mysql -p 3307:3306 -e MYSQL\_ROOT\_PASSWORD=123456 -d mysql</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 此时你的 localhost:8080 已经映射到你本地的 yourHost/www 目录下了，</span><br><span class="line"><span class="meta">#</span> 其对应到docker容器中的 dockerContainer/www 目录,</span><br><span class="line"><span class="meta">#</span> 但是 mysql 并不是 localhost:3307，而是你的机器真实ip:3307，例如：192.168.0.100:3307，</span><br><span class="line"><span class="meta">#</span> mysql 用户名 root，密码 123456</span><br><span class="line"><span class="meta">#</span> 那到这里一切就都准备好了，修改好项目的配置文件后即可通过 localhost:8080 访问了。</span><br></pre></td></tr></table></figure>
+<h3 id="SQL-Server-for-Linux"><a href="#SQL-Server-for-Linux" class="headerlink" title="SQL Server for Linux"></a>SQL Server for Linux</h3><p>某些特殊的场景下，数据可能存储到多处，比如 mysql、sql server、oracle等等。那在不是windows操作系统上的同学可能在操作sql server的时候，就比较麻烦了，以前的话，可以跑一个windows的虚拟机来运行sql server，然后配置一下外部访问就可以了。但是微软在今年出了一个SQL Server 2017，使得其可以运行在Linux/Unix系统上了，而且已经有多个发行版本的Linux包，各位可以自行到<a href="https://docs.microsoft.com/zh-cn/sql/linux/sql-server-linux-overview" target="_blank" rel="noopener">SQL Server for Linux官方文档</a>上去学习学习，我这里就说一下在MacOS下用Docker如何来运行。</p>
+<p>提醒：官方要求Docker内存分配至少2G，但是这里推荐设置4G。<br><img src="https://ws2.sinaimg.cn/large/006tNc79gy1fmx462imw2j30dw0ixdkj.jpg" alt="Jietu20171227-213657"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> docker pull microsoft/mssql-server-linux:2017-latest</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span> docker run -e 'ACCEPT_EULA=Y' -e 'MSSQL_SA_PASSWORD=&lt;YourStrong!Passw0rd&gt;' \</span><br><span class="line">   -p 1401:1433 --name sql1 \</span><br><span class="line">   --name mssql1 \</span><br><span class="line">   -d microsoft/mssql-server-linux:2017-latest</span><br><span class="line">   </span><br><span class="line"><span class="meta">#</span> -e ACCEPT_EULA = Y		确认接受最终用户许可协议，必须设置</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> -e 'MSSQL_SA_PASSWORD=&lt;YourStrong!Passw0rd&gt;'</span><br><span class="line"><span class="meta">#</span> 设置密码。要求：必须包含大写拉丁文[A-Z]、小写拉丁文[a-z]、数字[0-9]、</span><br><span class="line"><span class="meta">#</span> 		非数字字母字符[如：!、$、#、%等]这4种中的3种或以上。</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span> docker ps		# 此时应该可以看到 IMAGE 为 microsoft/mssql-server-linux:2017-latest 的容器了。</span><br><span class="line"><span class="meta">#</span> 此时你可以通过 navicat、visual studio等支持 sql server 客户端连接的工具，连接上 localhost:1401 了。</span><br></pre></td></tr></table></figure>
+<h3 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h3><p>记录一次粗糙的Docker操作，很没有掌握Dockerfile的使用，有很多容器服务安装和自启动是可以在Dockerfile里面完成的，且其能做到的远远不止这些，关于Docker的学习任重道远。</p>
+
+    </article>
+    <!-- 前后页  -->
+    <ul class="post-pager">
+        
+        
+            <li class="previous">
+                <a href= "/2017/12/24/Docker初探/" title= Docker初探 >
+                    <span>Previous Post</span>
+                    <span>Docker初探</span>
+                </a>
+            </li>
+        
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!--PC版-->
+
+    <!--PC版-->
+
+
+    
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:379947743@qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/assassinlex" class="iconfont-archer github" target="_blank" title="github"></a>
+            
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">Theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper">
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#LAMP镜像"><span class="toc-number">1.</span> <span class="toc-text"><a href="#LAMP&#x955C;&#x50CF;" class="headerlink" title="LAMP&#x955C;&#x50CF;"></a>LAMP&#x955C;&#x50CF;</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#基础镜像"><span class="toc-number">1.1.</span> <span class="toc-text"><a href="#&#x57FA;&#x7840;&#x955C;&#x50CF;" class="headerlink" title="&#x57FA;&#x7840;&#x955C;&#x50CF;"></a>&#x57FA;&#x7840;&#x955C;&#x50CF;</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LAMP服务搭建"><span class="toc-number">1.2.</span> <span class="toc-text"><a href="#LAMP&#x670D;&#x52A1;&#x642D;&#x5EFA;" class="headerlink" title="LAMP&#x670D;&#x52A1;&#x642D;&#x5EFA;"></a>LAMP&#x670D;&#x52A1;&#x642D;&#x5EFA;</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Apache"><span class="toc-number">1.2.1.</span> <span class="toc-text"><a href="#Apache" class="headerlink" title="Apache"></a>Apache</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#PHP"><span class="toc-number">1.2.2.</span> <span class="toc-text"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LAMP的相关配置"><span class="toc-number">2.</span> <span class="toc-text"><a href="#LAMP&#x7684;&#x76F8;&#x5173;&#x914D;&#x7F6E;" class="headerlink" title="LAMP&#x7684;&#x76F8;&#x5173;&#x914D;&#x7F6E;"></a>LAMP&#x7684;&#x76F8;&#x5173;&#x914D;&#x7F6E;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#检测环境"><span class="toc-number">3.</span> <span class="toc-text"><a href="#&#x68C0;&#x6D4B;&#x73AF;&#x5883;" class="headerlink" title="&#x68C0;&#x6D4B;&#x73AF;&#x5883;"></a>&#x68C0;&#x6D4B;&#x73AF;&#x5883;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#提交"><span class="toc-number">4.</span> <span class="toc-text"><a href="#&#x63D0;&#x4EA4;" class="headerlink" title="&#x63D0;&#x4EA4;"></a>&#x63D0;&#x4EA4;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#外部启动容器"><span class="toc-number">5.</span> <span class="toc-text"><a href="#&#x5916;&#x90E8;&#x542F;&#x52A8;&#x5BB9;&#x5668;" class="headerlink" title="&#x5916;&#x90E8;&#x542F;&#x52A8;&#x5BB9;&#x5668;"></a>&#x5916;&#x90E8;&#x542F;&#x52A8;&#x5BB9;&#x5668;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SQL-Server-for-Linux"><span class="toc-number">6.</span> <span class="toc-text"><a href="#SQL-Server-for-Linux" class="headerlink" title="SQL Server for Linux"></a>SQL Server for Linux</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#写在最后"><span class="toc-number">7.</span> <span class="toc-text"><a href="#&#x5199;&#x5728;&#x6700;&#x540E;" class="headerlink" title="&#x5199;&#x5728;&#x6700;&#x540E;"></a>&#x5199;&#x5728;&#x6700;&#x540E;</span></a></li></ol>
+    </div>
+    
+    <div class="back-top">&#xe639;</div>
+    <div class="sidebar">
+    <div class="sidebar-header sidebar-header-show-archive">
+        <div class="sidebar-category">
+            <span class="sidebar-archive-link"><span class="iconfont-archer">&#xe67d;</span>Archive</span>
+            <span class="sidebar-tags-link"><span class="iconfont-archer">&#xe610;</span>Tag</span>
+        </div>
+    </div>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-archive">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-archive"> Total : 3 </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2017 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/26</span><a class="archive-post-title" href= "/2017/12/26/Docker实践/" >Docker实践</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/24</span><a class="archive-post-title" href= "/2017/12/24/Docker初探/" >Docker初探</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/05</span><a class="archive-post-title" href= "/2017/12/05/开始写博客/" >开始写博客</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name"><a href= "#">Docker</a></span>
+    
+    </div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #888; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: false
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tag-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var jsInfo = {
+        root: '/'
+    }
+</script>
+    <!-- 不蒜子  -->
+    
+    <!-- CNZZ统计  -->
+    
+    </div>
+    </body>
+</html>
+
+

@@ -214,7 +214,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> docker pull centosx.x		# 拉取一个基础的服务器镜像， x.x代表版本号</span><br><span class="line"><span class="meta">$</span> docker run -it centosx.x		# 启动这个镜像，进入linux交互界面，之后就是源码编译安装服务器环境。安装完成后测试，确认全部没有问题后，清理安装包后退出容器，这里的具体编译就不赘述了。</span><br><span class="line"><span class="meta">$</span> docker commit -m "提交信息" 用户名/容器名:tag名		# tag名可省略，默认为latest</span><br></pre></td></tr></table></figure>
 <p>这样，整个过程中最繁琐的就是在容器中搭建各种和依赖，但这一切都是值得的，构建一次镜像，你可以push到你自己的docker仓库中(这个要求你在Docker Cloud有一个账户)，以后换电脑、换环境，你只用拉取你的这个镜像，然后启动一个容器，将你本地的项目映射到容器的环境中去，一切都变得十分简单。</p>
 <h3 id="补充说明："><a href="#补充说明：" class="headerlink" title="补充说明："></a>补充说明：</h3><p>将本地的项目映射到Docker容器中的操作指令：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> docker run -it -d 8000:80 -v /User/www:/Server/www ContainerID</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> docker run -it -d -p 8000:80 -v /User/www:/Server/www ContainerID</span><br></pre></td></tr></table></figure>
 <h3 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h3><p>这篇文章只是对<strong>Docker</strong>做一个初步的介绍，更多详细的资料请访问官方文档，在这里推荐几本书给大家，有兴趣的同学可以瞄一瞄。</p>
 <ul>
 <li><a href="https://item.jd.com/12121728.html" target="_blank" rel="noopener">Docker技术入门与实战 (第2版) </a></li>
@@ -224,6 +224,13 @@
     </article>
     <!-- 前后页  -->
     <ul class="post-pager">
+        
+            <li class="next">
+                <a href= "/2017/12/26/Docker实践/" title= Docker实践 >
+                    <span>Next Post</span>
+                    <span>Docker实践</span>
+                </a>
+            </li>
         
         
             <li class="previous">
@@ -319,7 +326,16 @@
     
     
     
-    <div class="total-archive"> Total : 2 </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-archive"> Total : 3 </div>
     
     <div class="post-archive">
     
@@ -328,6 +344,11 @@
     
     <div class="archive-year"> 2017 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/26</span><a class="archive-post-title" href= "/2017/12/26/Docker实践/" >Docker实践</a>
+        </li>
     
     
         <li class="archive-post-item">

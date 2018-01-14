@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" >
     <title>
         
-        开始写博客 · assassinlex的个人博客
+        http升级https的坑 · assassinlex的个人博客
         
     </title>
     <link rel="icon" href= /assests/favicon.ico>
@@ -63,7 +63,7 @@
                 <a href="/" >lex</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">开始写博客</a>
+                <a href="#" class="post-name">http升级https的坑</a>
             </div>
     </div>
     
@@ -84,7 +84,7 @@
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            开始写博客
+            http升级https的坑
             <!-- 404 -->
             
         </h1>
@@ -100,9 +100,17 @@
         
             <!-- 文章页标签  -->
             
+                <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-href = javascript>javascript</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-href = php>php</a>
+    
+</div>
+            
             <div class="post-intro-meta">
                 <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                <span class="post-intro-time">2017/12/05</span>
+                <span class="post-intro-time">2018/01/15</span>
             </div>
         
     </div>
@@ -173,20 +181,29 @@
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <p>很早以前就有这个想法了，因为各种原因(其实就是懒)，这个事情就一直落下了。工作已经满一年了，总感觉自己对平时工作和学习的总结不够，最近这种感觉愈发的强烈，于是就强迫自己写博客，通过这种方式来记录自己工作和学习中的一些所见所得，多加深一下自己对所学的知识的理解。若是也有道友碰到和我类似的问题，希望对你也有帮助。  </p>
-<p>Ps: 鄙人是一名PHP程序员，处于程序员鄙视链的底端，顺便说一句：PHP是世界上最好的语言！</p>
+        <p>今天帮一位老哥把一个H5移动端项目上线做测试时，页面上有许多广告，老哥很不爽，说能升级一下协议，弄成https吗，答曰：行。捣鼓一阵后，chrome上绿色的小锁看着，还是舒服啊~~~。但是打开网站一看，什么鬼，之前的API请求失败！！！什么原因？打开控制台一看，报了如下错误：</p>
+<blockquote>
+<p>Mixed Content: The page at ‘xxxx’ was loaded over HTTPS, but requested an insecure script ‘xxxx’. This request has been blocked; the content must be served over HTTPS.</p>
+</blockquote>
+<p>咋一瞧，大概说是这个html页面通过https协议加载，但是请求了一个不安全的脚本。这个请求已被锁定，这里面的内容必须通过https服务来获取。看了看老哥的项目，忘了改接口地址了，接口全部改成https协议，提交推送后再进行测试，结果之前的错误信息已经不在，但又出现了新的问题：</p>
+<blockquote>
+<p>Refused to execute script from ‘xxx’ because its MIME type (‘text/html’) is not executable, and strict MIME type checking is enabled</p>
+</blockquote>
+<p>这个说的是浏览器拒绝执行脚本程序，因为浏览器将请求回来的资源认作为’text/html’了，是不可执行的，并且开启了MIME类型的严格检查。知道了问题的根源那就好办了，修改后台接口，指定返回的资源类型就可以解决了：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">header(<span class="string">'Content-Type: application/javascript'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment"># 接下来的业务代码</span></span><br></pre></td></tr></table></figure>
+<p>总结：http的移动端经常出现广告这种事情，据说是http劫持或是dns劫持，这个我也不清楚，也不了解。但是https确实能够解决这种问题，然后就是做事还不够细心，升级了协议，接口地址都没改，哈哈，最后第一次碰到这种拒绝执行脚本的问题，还好也是解决了，就在这里记录一下吧。</p>
 
     </article>
     <!-- 前后页  -->
     <ul class="post-pager">
         
-            <li class="next">
-                <a href= "/2017/12/24/Docker初探/" title= Docker初探 >
-                    <span>Next Post</span>
-                    <span>Docker初探</span>
+        
+            <li class="previous">
+                <a href= "/2017/12/26/Docker实践/" title= Docker实践 >
+                    <span>Previous Post</span>
+                    <span>Docker实践</span>
                 </a>
             </li>
-        
         
     </ul>
     <!-- 评论插件 -->

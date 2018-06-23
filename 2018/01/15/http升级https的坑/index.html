@@ -190,7 +190,7 @@
 <p>Refused to execute script from ‘xxx’ because its MIME type (‘text/html’) is not executable, and strict MIME type checking is enabled</p>
 </blockquote>
 <p>这个说的是浏览器拒绝执行脚本程序，因为浏览器将请求回来的资源认作为’text/html’了，是不可执行的，并且开启了MIME类型的严格检查。知道了问题的根源那就好办了，修改后台接口，指定返回的资源类型就可以解决了：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">header(<span class="string">'Content-Type: application/javascript'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment"># 接下来的业务代码</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">header(<span class="string">'Content-Type: application/json'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment"># 接下来的业务代码</span></span><br></pre></td></tr></table></figure>
 <p>总结：http的移动端经常出现广告这种事情，据说是http劫持或是dns劫持，这个我也不清楚，也不了解。但是https确实能够解决这种问题，然后就是做事还不够细心，升级了协议，接口地址都没改，哈哈，最后第一次碰到这种拒绝执行脚本的问题，还好也是解决了，就在这里记录一下吧。</p>
 
     </article>
@@ -307,8 +307,6 @@
     
     
     
-    
-    
     <div class="total-archive"> Total : 4 </div>
     
     <div class="post-archive">
@@ -353,11 +351,11 @@
         <div class="sidebar-tags">
     <div class="sidebar-tags-name">
     
+        <span class="sidebar-tag-name"><a href= "#">Docker</a></span>
+    
         <span class="sidebar-tag-name"><a href= "#">javascript</a></span>
     
         <span class="sidebar-tag-name"><a href= "#">php</a></span>
-    
-        <span class="sidebar-tag-name"><a href= "#">Docker</a></span>
     
     </div>
     <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">

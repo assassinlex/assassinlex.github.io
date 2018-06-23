@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" >
     <title>
         
-        http升级https的坑 · assassinlex的个人博客
+        跨域的几种解决方案 · assassinlex的个人博客
         
     </title>
     <link rel="icon" href= /assests/favicon.ico>
@@ -63,7 +63,7 @@
                 <a href="/" >lex</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">http升级https的坑</a>
+                <a href="#" class="post-name">跨域的几种解决方案</a>
             </div>
     </div>
     
@@ -84,7 +84,7 @@
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            http升级https的坑
+            跨域的几种解决方案
             <!-- 404 -->
             
         </h1>
@@ -104,13 +104,13 @@
     
         <a class="post-tag" href="javascript:void(0);" data-href = javascript>javascript</a>
     
-        <a class="post-tag" href="javascript:void(0);" data-href = php>php</a>
+        <a class="post-tag" href="javascript:void(0);" data-href = nginx>nginx</a>
     
 </div>
             
             <div class="post-intro-meta">
                 <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                <span class="post-intro-time">2018/01/15</span>
+                <span class="post-intro-time">2018/06/23</span>
             </div>
         
     </div>
@@ -181,34 +181,58 @@
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <p>今天帮一位老哥把一个H5移动端项目上线做测试时，页面上有许多广告，老哥很不爽，说能升级一下协议，弄成https吗，答曰：行。捣鼓一阵后，chrome上绿色的小锁看着，还是舒服啊~~~。但是打开网站一看，什么鬼，之前的API请求失败！！！什么原因？打开控制台一看，报了如下错误：</p>
-<blockquote>
-<p>Mixed Content: The page at ‘xxxx’ was loaded over HTTPS, but requested an insecure script ‘xxxx’. This request has been blocked; the content must be served over HTTPS.</p>
-</blockquote>
-<p>咋一瞧，大概说是这个html页面通过https协议加载，但是请求了一个不安全的脚本。这个请求已被锁定，这里面的内容必须通过https服务来获取。看了看老哥的项目，忘了改接口地址了，接口全部改成https协议，提交推送后再进行测试，结果之前的错误信息已经不在，但又出现了新的问题：</p>
-<blockquote>
-<p>Refused to execute script from ‘xxx’ because its MIME type (‘text/html’) is not executable, and strict MIME type checking is enabled</p>
-</blockquote>
-<p>这个说的是浏览器拒绝执行脚本程序，因为浏览器将请求回来的资源认作为’text/html’了，是不可执行的，并且开启了MIME类型的严格检查。知道了问题的根源那就好办了，修改后台接口，指定返回的资源类型就可以解决了：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">header(<span class="string">'Content-Type: application/json'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment"># 接下来的业务代码</span></span><br></pre></td></tr></table></figure>
-<p>总结：http的移动端经常出现广告这种事情，据说是http劫持或是dns劫持，这个我也不清楚，也不了解。但是https确实能够解决这种问题，然后就是做事还不够细心，升级了协议，接口地址都没改，哈哈，最后第一次碰到这种拒绝执行脚本的问题，还好也是解决了，就在这里记录一下吧。</p>
+        <h3 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h3><p>造成跨域请求的场景大体分为以下几种：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">示例</th>
+<th style="text-align:center">原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>http://www.a.com/a.js</code> <br><code>http://www.b.com/b.js</code></td>
+<td style="text-align:center">不同域名</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>http://www.a.com/a.js</code> <br><code>http://mail.a.com/b.js</code></td>
+<td style="text-align:center">不同子域名(可归于上一类)</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>http://www.a.com:8000/a.js</code> <br><code>http://www.a.com:8001/b.js</code></td>
+<td style="text-align:center">不同端口</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>http://www.a.com/a.js</code> <br><code>https://www.a.com/b.js</code></td>
+<td style="text-align:center">不同协议</td>
+</tr>
+</tbody>
+</table>
+<p>当站点 <em>a Ajax</em> 请求站点 <em>b</em> b.js 中的资源时，以上的场景都会出现跨域请求，由于浏览器的同源策略限制，是无法正常获取数据的。</p>
+<p>这里介绍自己使用的两种解决方案。</p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><h4 id="jsonp"><a href="#jsonp" class="headerlink" title="jsonp"></a>jsonp</h4><p><code>jsonp</code> 利用 <code>html</code> 中的 <code>&lt;script&gt;</code> 标签的 <code>src</code> 属性来获取服务器数据，就好比 <code>&lt;img/&gt;</code> 标签的 <code>src</code> 可以引用外站图片资源一样，<code>script</code> 标签会获取服务端返回的 <code>json</code> 数据，但是浏览器会把其当做 <code>javascript</code> 代码来运行，会导致出错。所以我们传递给后台一个动态的 <code>callback</code> 参数(一般随机生成)，后台会返回一个 <code>callback</code> 函数包含 <code>json</code> 数据的字符串：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">callback_123124124124(&#123;<span class="string">"foo"</span>: <span class="string">"bar"</span>&#125;);</span><br></pre></td></tr></table></figure>
+<p>这样，<code>json</code> 数据就成为了回调函数 <code>callback_123124124124()</code> 的参数，jQuery库会自动调用此回调函数，参数就是服务端的 <code>json</code> 数据。此时就可以拿回数据，开展具体的业务逻辑。</p>
+<p>但是 <code>jsonp</code> 有个缺点，就是通过 <code>script</code> 标签来获取数据，只能实现 <code>GET</code> 请求，无法实现 <code>POST</code> 请求。所以推荐下面这种方式，也是最灵活的一种。</p>
+<h4 id="Nginx-反向代理"><a href="#Nginx-反向代理" class="headerlink" title="Nginx 反向代理"></a>Nginx 反向代理</h4><p>其实别的 web 服务器也可以，个人觉得 <code>nginx</code> 比较好用，所以就拿这个来举例了。</p>
+<p>假设场景：</p>
+<p>当你在本地开启了一个  <code>http://localhost:8000</code> 的应用，你要在你的项目中需要调用 <code>http://www.target.com/api/</code> 下的接口，你可以做以下操作。</p>
+<p>修改 <em>nginx</em> 配置文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> nginx.conf 配置文件</span><br><span class="line">.</span><br><span class="line">.</span><br><span class="line">.</span><br><span class="line">server &#123;</span><br><span class="line">    listen 8000;    # 保证和你的 localhost 端口一致</span><br><span class="line">    server_name localhost;</span><br><span class="line">    </span><br><span class="line">    location / &#123;</span><br><span class="line">        root /your/project/path;    # 你的项目路径</span><br><span class="line">        index index.html index.htm;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    localhost ~*/api/ &#123;    # 匹配规则</span><br><span class="line">        proxy_set_header Host    $host;</span><br><span class="line">        proxy_set_header X-Real-IP    $remote_addr;</span><br><span class="line">        proxy_set_header X-Forwarded-For    $proxy_add_x_forwarded_for;</span><br><span class="line">        proxy_pass http://www.target.com;    # 这里修改为你目标 API 的域名</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">.</span><br><span class="line">.</span><br><span class="line">.</span><br></pre></td></tr></table></figure>
+<p>修改完配置文件重启 <em>web</em> 服务器</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 假如你 localhost:8000 的某个模块中需要请求到 www.target.com/api/demo?foo=bar 这个接口</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 此时就将 www.target.com 改为 localhost:8000</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 即 API 地址为 localhost:8000/api/demo?foo=bar </span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 此时就不会报跨域的错误信息了，也可以使用 post 请求</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 解决 jsonp 无法请求 post 类型的接口的问题</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line"></span><br><span class="line">xhr.open(<span class="string">'POST'</span>,<span class="string">'localhost:8000/api/demo'</span>);</span><br><span class="line"></span><br><span class="line">xhr.setRequestHeader(<span class="string">'Content-Type'</span>, <span class="string">'application/x-www-form-urlencoded'</span>);</span><br><span class="line"></span><br><span class="line">xhr.send(<span class="string">'foo=bar'</span>);</span><br><span class="line"></span><br><span class="line">xhr.onreadystatechange = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (xhr.readyState === <span class="number">4</span> &amp;&amp; xhr.status === <span class="number">200</span>) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.parse(xhr.responseText));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>反向代理的原理是将 <code>localhost</code> 的请求做了一次转发，将请求代理为目标接口服务器相同的域下，保证协议、域名和端口完全一致，使得这次请求不会产生文章开头提到的触发跨域的条件，数据正常返回，之后就可以开展具体的逻辑。</p>
+<h3 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h3><p>最后顺带提一个解决方案——跨域资源共享，这种方案需要后端人员来实现这个功能，要了解其具体相关知识，推荐 <strong><em>阮一峰</em></strong> 老师的一篇文章: <a href="http://www.ruanyifeng.com/blog/2016/04/cors.html" target="_blank" rel="noopener">跨域资源共享 CORS 详解</a>。</p>
 
     </article>
     <!-- 前后页  -->
     <ul class="post-pager">
         
-            <li class="next">
-                <a href= "/2018/06/23/跨域的几种解决方案/" title= 跨域的几种解决方案 >
-                    <span>Next Post</span>
-                    <span>跨域的几种解决方案</span>
-                </a>
-            </li>
-        
         
             <li class="previous">
-                <a href= "/2017/12/26/Docker实践/" title= Docker实践 >
+                <a href= "/2018/01/15/http升级https的坑/" title= http升级https的坑 >
                     <span>Previous Post</span>
-                    <span>Docker实践</span>
+                    <span>http升级https的坑</span>
                 </a>
             </li>
         
@@ -266,7 +290,7 @@
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#跨域"><span class="toc-number">1.</span> <span class="toc-text"><a href="#&#x8DE8;&#x57DF;" class="headerlink" title="&#x8DE8;&#x57DF;"></a>&#x8DE8;&#x57DF;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解决方案"><span class="toc-number">2.</span> <span class="toc-text"><a href="#&#x89E3;&#x51B3;&#x65B9;&#x6848;" class="headerlink" title="&#x89E3;&#x51B3;&#x65B9;&#x6848;"></a>&#x89E3;&#x51B3;&#x65B9;&#x6848;</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#jsonp"><span class="toc-number">2.1.</span> <span class="toc-text"><a href="#jsonp" class="headerlink" title="jsonp"></a>jsonp</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Nginx-反向代理"><span class="toc-number">2.2.</span> <span class="toc-text"><a href="#Nginx-&#x53CD;&#x5411;&#x4EE3;&#x7406;" class="headerlink" title="Nginx &#x53CD;&#x5411;&#x4EE3;&#x7406;"></a>Nginx &#x53CD;&#x5411;&#x4EE3;&#x7406;</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#写在最后"><span class="toc-number">3.</span> <span class="toc-text"><a href="#&#x5199;&#x5728;&#x6700;&#x540E;" class="headerlink" title="&#x5199;&#x5728;&#x6700;&#x540E;"></a>&#x5199;&#x5728;&#x6700;&#x540E;</span></a></li></ol>
     </div>
     
     <div class="back-top">&#xe639;</div>

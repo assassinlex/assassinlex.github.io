@@ -149,14 +149,17 @@
     
     
         <article class="index-post">
-            <a class="content-show-full" href = "/2017/12/26/Docker实践/" >
+            <a class="content-show-full" href = "/2017/12/30/Docker实践/" >
                     <h2 class="abstract-title">
                         
                         <span>Docker实践</span>
                     </h2>
                 <div class="abstract-content">
-                    由于笔记本装的是最新版本的php7.2，导致一些老项目无法运行，今天就做了一个lamp的镜像，顺便学习了一下微软的SQL Server-for-Linux的镜像，这里就分享一下。
-php需要特殊的远古版本5.3，且web服务器用的是apache而不是nginx，所以apache和php是在基础镜像的基础上自定义安装的，mysql是独自另外一个镜像。原本打算mysql也和php装在一个镜像中，这样每次只需要启动一个容器就可以了，但是由于技术不到家，当装完amp三件套后保存为新的镜像，启动容器时mysqld总是无法启动，进入shell查看原因时发现是无法更新进程文件导致的，但是我用以前的修改...
+                    当我们的某一个业务同时需要多个服务来支撑的时候，就需要开启多个服务容器来同时协作完成任务，但是容器和容器之间默认是隔绝的，怎么管理多个容器，docker-compose就是这些容器的管理者。
+本篇介绍一下如何使用 docker-compose，首先在终端中输入命令，以确保其已正确安装，安装方式请查阅官方网站。
+12$ docker-compose --versiondocker-compose 1.8.1
+docker-compose 通过一个配置文件来管理多个容器，如下列出一个我用过的例子。
+12345678910111213141516171819202122232425262728...
                 </div>
             </a>
             <div class="abstract-post-meta">
@@ -170,7 +173,7 @@ php需要特殊的远古版本5.3，且web服务器用的是apache而不是nginx
                 
                 <!-- date  -->
                 <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer"></span><span class="abstract-time">2017/12/26</span>
+                    <span class="abstract-calander iconfont-archer"></span><span class="abstract-time">2017/12/30</span>
                 </div>
             </div>
         </article>
@@ -335,12 +338,49 @@ Ps: 鄙人是一名PHP程序员，处于程序员鄙视链的底端，顺便说�
     
     
     
-    <div class="total-archive"> Total : 6 </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-archive"> Total : 7 </div>
     
     <div class="post-archive">
     
     
     
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/14</span><a class="archive-post-title" href= "/2019/02/14/Dockerfile常用命令/" >[Untitled Post]</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
     
     <div class="archive-year"> 2018 </div>
     <ul class="year-list">
@@ -371,7 +411,7 @@ Ps: 鄙人是一名PHP程序员，处于程序员鄙视链的底端，顺便说�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/26</span><a class="archive-post-title" href= "/2017/12/26/Docker实践/" >Docker实践</a>
+            <span class="archive-post-date">12/30</span><a class="archive-post-title" href= "/2017/12/30/Docker实践/" >Docker实践</a>
         </li>
     
     
@@ -389,15 +429,15 @@ Ps: 鄙人是一名PHP程序员，处于程序员鄙视链的底端，顺便说�
         <div class="sidebar-tags">
     <div class="sidebar-tags-name">
     
+        <span class="sidebar-tag-name"><a href= "#">Docker</a></span>
+    
+        <span class="sidebar-tag-name"><a href= "#">javascript</a></span>
+    
         <span class="sidebar-tag-name"><a href= "#">php</a></span>
     
         <span class="sidebar-tag-name"><a href= "#">并行网络请求</a></span>
     
-        <span class="sidebar-tag-name"><a href= "#">javascript</a></span>
-    
         <span class="sidebar-tag-name"><a href= "#">nginx</a></span>
-    
-        <span class="sidebar-tag-name"><a href= "#">Docker</a></span>
     
     </div>
     <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">

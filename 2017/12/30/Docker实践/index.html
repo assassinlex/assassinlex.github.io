@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" >
     <title>
         
-        assassinlex的个人博客
+        Docker实践 · assassinlex的个人博客
         
     </title>
     <link rel="icon" href= /assests/favicon.ico>
@@ -50,11 +50,22 @@
     
 </head>
     
+        <body class="post-body">
+    
     
 <header class="header">
 
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >lex</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">Docker实践</a>
+            </div>
+    </div>
     
     <a class="home-link" href=/>lex</a>
 </header>
@@ -62,21 +73,43 @@
         <div class="site-intro">
     
     <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
             
-    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-img" style="background-image: url(http://oumn0o088.bkt.clouddn.com/post-bg.jpg)"></div>
     <div class="site-intro-placeholder"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
             
+            Docker实践
+            <!-- 404 -->
+            
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
+            
+            <!-- 404 -->
+            
         </p>
         <!-- 文章页meta -->
+        
+            <!-- 文章页标签  -->
+            
+                <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-href = Docker>Docker</a>
+    
+</div>
+            
+            <div class="post-intro-meta">
+                <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                <span class="post-intro-time">2017/12/30</span>
+            </div>
         
     </div>
 </div>
@@ -144,99 +177,48 @@
             }
         </script>
         <div class="container container-unloaded">
-            <main class="main index-page">
-    
-    
-    
-        <article class="index-post">
-            <a class="content-show-full" href = "/2017/12/30/Docker实践/" >
-                    <h2 class="abstract-title">
-                        
-                        <span>Docker实践</span>
-                    </h2>
-                <div class="abstract-content">
-                    当我们的某一个业务同时需要多个服务来支撑的时候，就需要开启多个服务容器来同时协作完成任务，但是容器和容器之间默认是隔绝的，怎么管理多个容器，docker-compose就是这些容器的管理者。
-本篇介绍一下如何使用 docker-compose，首先在终端中输入命令，以确保其已正确安装，安装方式请查阅官方网站。
-12$ docker-compose --versiondocker-compose 1.8.1
-docker-compose 通过一个配置文件来管理多个容器，如下列出一个我用过的例子。
-12345678910111213141516171819202122232425262728...
-                </div>
-            </a>
-            <div class="abstract-post-meta">
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-href = Docker>Docker</a>
-    
-</div>
-                
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer"></span><span class="abstract-time">2017/12/30</span>
-                </div>
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="content-show-full" href = "/2017/12/24/Docker初探/" >
-                    <h2 class="abstract-title">
-                        
-                        <span>Docker初探</span>
-                    </h2>
-                <div class="abstract-content">
-                    由于公司的服务器程序版本过于老旧，生产环境和本地开发环境的差异给开发带来很多不方便。为了环境的统一，可以采取Vagrant，或者Docker解决环境问题。下文介绍一些Docker的基础知识。  
-首先介绍一下什么是Docker，它能做些什么，如何来使用它等。
-Docker简介这里引用 Docker入门教程 中的定义：
+            <main class="main post-page">
+    <article class="article-entry">
+        <p>当我们的某一个业务同时需要多个服务来支撑的时候，就需要开启多个服务容器来同时协作完成任务，但是容器和容器之间默认是隔绝的，怎么管理多个容器，docker-compose就是这些容器的管理者。</p>
+<p>本篇介绍一下如何使用 docker-compose，首先在终端中输入命令，以确保其已正确安装，安装方式请查阅官方网站。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> docker-compose --version</span><br><span class="line">docker-compose 1.8.1</span><br></pre></td></tr></table></figure>
+<p>docker-compose 通过一个配置文件来管理多个容器，如下列出一个我用过的例子。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">"3"</span>	<span class="comment"># 版本号</span></span><br><span class="line"><span class="attr">services:</span>		<span class="comment"># 服务列表</span></span><br><span class="line"><span class="attr">  nginx:</span>		<span class="comment"># web 服务</span></span><br><span class="line"><span class="attr">    image:</span> <span class="attr">nginx:1.13</span>	<span class="comment"># 镜像</span></span><br><span class="line"><span class="attr">    ports:</span>				<span class="comment"># 端口绑定</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">"8085:80"</span>		<span class="comment"># 宿主机的 8085 对应容器的 80 端口</span></span><br><span class="line"><span class="attr">    volumes:</span>			<span class="comment"># 挂载点</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">./web:/web</span>		<span class="comment"># 宿主机的 ./web 对应容器的 /web</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">./nginx/nginx.conf:/etc/nginx/nginx.conf</span>	<span class="comment"># 同上</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">./nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf</span>	<span class="comment"># 同上</span></span><br><span class="line"><span class="attr">    environment:</span> 			<span class="comment"># 环境变量</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">"TZ: Asia/Shanghai"</span>	<span class="comment"># TZ 的值</span></span><br><span class="line"><span class="attr">    networks:</span>				<span class="comment"># 同一网络上的容器可以连接到别的容器</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">lnmp</span></span><br><span class="line"><span class="attr">    links:</span>					<span class="comment"># 容器间的链接</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">php</span></span><br><span class="line"><span class="attr">  php:</span>						<span class="comment"># php 服务</span></span><br><span class="line"><span class="attr">    image:</span> <span class="string">leleos/php-fpm:5.3</span>	<span class="comment"># 以下略</span></span><br><span class="line"><span class="attr">    volumes:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">./web:/web</span></span><br><span class="line"><span class="attr">    environment:</span> </span><br><span class="line"><span class="bullet">      -</span> <span class="string">"TZ: Asia/Shanghai"</span></span><br><span class="line"><span class="attr">    networks:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">lnmp</span></span><br><span class="line"><span class="attr">    links:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">mysql</span></span><br><span class="line"><span class="attr">  mysql:</span></span><br><span class="line"><span class="attr">    hostname:</span> <span class="string">mysqlhost</span></span><br><span class="line"><span class="attr">    image:</span> <span class="attr">mysql:5.6</span></span><br><span class="line"><span class="attr">    volumes:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">./mysql/conf:/etc/mysql/conf.d</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">./mysql/data:/var/lib/mysql</span></span><br><span class="line"><span class="attr">    environment:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">MYSQL_ROOT_PASSWORD=123456</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">MYSQL_DATABASE=test</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">MYSQL_USER=test</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">MYSQL_PASSWORD=123456</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">TZ=Asia/Shanghai</span></span><br><span class="line"><span class="attr">    ports:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="number">3307</span><span class="string">:3306</span></span><br><span class="line"><span class="attr">    networks:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">lnmp</span></span><br><span class="line"><span class="attr">networks:</span></span><br><span class="line"><span class="attr">  lnmp:</span></span><br></pre></td></tr></table></figure>
+<p>写好配置文件后可通过相关命令来构建和启动镜像或容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose build 或者 docker-compose up</span><br></pre></td></tr></table></figure>
+<p>关于 docker 集群的相关之后，以后有时间在分享。</p>
 
- Docker是一个开源的引擎，可以轻松的为任何应用创建一个轻量级的、可移植的、自给自足的容器。开发者在笔记本上编译测试通过的容器可以批量地在生产环境中部署，包括VMs（虚拟机）、bare metal、OpenStack 集群和其他的基础应用平台。
+    </article>
+    <!-- 前后页  -->
+    <ul class="post-pager">
+        
+            <li class="next">
+                <a href= "/2018/01/15/http升级https的坑/" title= http升级https的坑 >
+                    <span>Next Post</span>
+                    <span>http升级https的坑</span>
+                </a>
+            </li>
+        
+        
+            <li class="previous">
+                <a href= "/2017/12/24/Docker初探/" title= Docker初探 >
+                    <span>Previous Post</span>
+                    <span>Docker初探</span>
+                </a>
+            </li>
+        
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
 
-简单来说，Docke...
-                </div>
-            </a>
-            <div class="abstract-post-meta">
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-href = Docker>Docker</a>
-    
-</div>
-                
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer"></span><span class="abstract-time">2017/12/24</span>
-                </div>
-            </div>
-        </article>
+<!-- City版安装代码已完成 -->
     
     
-    
-        <article class="index-post">
-            <a class="content-show-full" href = "/2017/12/05/开始写博客/" >
-                    <h2 class="abstract-title">
-                        
-                        <span>开始写博客</span>
-                    </h2>
-                <div class="abstract-content">
-                    很早以前就有这个想法了，因为各种原因(其实就是懒)，这个事情就一直落下了。工作已经满一年了，总感觉自己对平时工作和学习的总结不够，最近这种感觉愈发的强烈，于是就强迫自己写博客，通过这种方式来记录自己工作和学习中的一些所见所得，多加深一下自己对所学的知识的理解。若是也有道友碰到和我类似的问题，希望对你也有帮助。  
-Ps: 鄙人是一名PHP程序员，处于程序员鄙视链的底端，顺便说一句：PHP是世界上最好的语言！
+    <!--PC版-->
 
-                </div>
-            </a>
-            <div class="abstract-post-meta">
-                <!-- tags  -->
-                
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer"></span><span class="abstract-time">2017/12/05</span>
-                </div>
-            </div>
-        </article>
-    
-    <!-- paginator  -->
+    <!--PC版-->
+
+
     
 </main>
             <!-- profile -->
@@ -274,6 +256,13 @@ Ps: 鄙人是一名PHP程序员，处于程序员鄙视链的底端，顺便说�
 </footer>
     </div>
     <!-- toc -->
+    
+    <div class="toc-wrapper">
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        
+    </div>
     
     <div class="back-top">&#xe639;</div>
     <div class="sidebar">

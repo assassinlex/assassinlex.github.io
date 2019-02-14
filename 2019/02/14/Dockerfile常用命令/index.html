@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" >
     <title>
         
-        Docker实践 · assassinlex的个人博客
+        assassinlex的个人博客
         
     </title>
     <link rel="icon" href= /assests/favicon.ico>
@@ -63,7 +63,7 @@
                 <a href="/" >lex</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">Docker实践</a>
+                <a href="#" class="post-name"></a>
             </div>
     </div>
     
@@ -84,7 +84,7 @@
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            Docker实践
+            [Untitled Post]
             <!-- 404 -->
             
         </h1>
@@ -100,15 +100,9 @@
         
             <!-- 文章页标签  -->
             
-                <div class= post-intro-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-href = Docker>Docker</a>
-    
-</div>
-            
             <div class="post-intro-meta">
                 <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                <span class="post-intro-time">2017/12/30</span>
+                <span class="post-intro-time">2019/02/14</span>
             </div>
         
     </div>
@@ -179,31 +173,51 @@
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <p>当我们的某一个业务同时需要多个服务来支撑的时候，就需要开启多个服务容器来同时协作完成任务，但是容器和容器之间默认是隔绝的，怎么管理多个容器，docker-compose就是这些容器的管理者。</p>
-<p>本篇介绍一下如何使用 docker-compose，首先在终端中输入命令，以确保其已正确安装，安装方式请查阅官方网站。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> docker-compose --version</span><br><span class="line">docker-compose 1.8.1</span><br></pre></td></tr></table></figure>
-<p>docker-compose 通过一个配置文件来管理多个容器，如下列出一个我用过的例子。</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">"3"</span>	<span class="comment"># 版本号</span></span><br><span class="line"><span class="attr">services:</span>		<span class="comment"># 服务列表</span></span><br><span class="line"><span class="attr">  nginx:</span>		<span class="comment"># web 服务</span></span><br><span class="line"><span class="attr">    image:</span> <span class="attr">nginx:1.13</span>	<span class="comment"># 镜像</span></span><br><span class="line"><span class="attr">    ports:</span>				<span class="comment"># 端口绑定</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">"8085:80"</span>		<span class="comment"># 宿主机的 8085 对应容器的 80 端口</span></span><br><span class="line"><span class="attr">    volumes:</span>			<span class="comment"># 挂载点</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">./web:/web</span>		<span class="comment"># 宿主机的 ./web 对应容器的 /web</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">./nginx/nginx.conf:/etc/nginx/nginx.conf</span>	<span class="comment"># 同上</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">./nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf</span>	<span class="comment"># 同上</span></span><br><span class="line"><span class="attr">    environment:</span> 			<span class="comment"># 环境变量</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">"TZ: Asia/Shanghai"</span>	<span class="comment"># TZ 的值</span></span><br><span class="line"><span class="attr">    networks:</span>				<span class="comment"># 同一网络上的容器可以连接到别的容器</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">lnmp</span></span><br><span class="line"><span class="attr">    links:</span>					<span class="comment"># 容器间的链接</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">php</span></span><br><span class="line"><span class="attr">  php:</span>						<span class="comment"># php 服务</span></span><br><span class="line"><span class="attr">    image:</span> <span class="string">leleos/php-fpm:5.3</span>	<span class="comment"># 以下略</span></span><br><span class="line"><span class="attr">    volumes:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">./web:/web</span></span><br><span class="line"><span class="attr">    environment:</span> </span><br><span class="line"><span class="bullet">      -</span> <span class="string">"TZ: Asia/Shanghai"</span></span><br><span class="line"><span class="attr">    networks:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">lnmp</span></span><br><span class="line"><span class="attr">    links:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">mysql</span></span><br><span class="line"><span class="attr">  mysql:</span></span><br><span class="line"><span class="attr">    hostname:</span> <span class="string">mysqlhost</span></span><br><span class="line"><span class="attr">    image:</span> <span class="attr">mysql:5.6</span></span><br><span class="line"><span class="attr">    volumes:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">./mysql/conf:/etc/mysql/conf.d</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">./mysql/data:/var/lib/mysql</span></span><br><span class="line"><span class="attr">    environment:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">MYSQL_ROOT_PASSWORD=123456</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">MYSQL_DATABASE=test</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">MYSQL_USER=test</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">MYSQL_PASSWORD=123456</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">TZ=Asia/Shanghai</span></span><br><span class="line"><span class="attr">    ports:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="number">3307</span><span class="string">:3306</span></span><br><span class="line"><span class="attr">    networks:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">lnmp</span></span><br><span class="line"><span class="attr">networks:</span></span><br><span class="line"><span class="attr">  lnmp:</span></span><br></pre></td></tr></table></figure>
-<p>写好配置文件后可通过相关命令来构建和启动镜像或容器</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose build 或者 docker-compose up</span><br></pre></td></tr></table></figure>
-<p>关于 docker 集群的相关之后，以后有时间在分享。</p>
+        <p>title: Dockerfile常用命令<br>date: 2017-12-26 16:05:40<br>tags: Docker</p>
+<p>我们创建一个 Docker 容器，希望其可以自动化执行，不用每次在命令行里面输入一大堆参数，那样很麻烦。Dockerfile提供了一系列指令，可以让我们像执行脚本程序一样，预先定义好容器镜像。接下来简单介绍一下，常用的一些 Dockerfile 命令。</p>
+<h5 id="FROM"><a href="#FROM" class="headerlink" title="FROM"></a>FROM</h5><blockquote>
+<p>自定义镜像一般都会有一个基础镜像，FROM 指定一个基础镜像。</p>
+<p>FROM    alpine</p>
+</blockquote>
+<h5 id="RUN"><a href="#RUN" class="headerlink" title="RUN"></a>RUN</h5><blockquote>
+<p>镜像是一层层构建的，一个镜像可以有多个 Layer。RUN 在镜像构建前运行命令</p>
+<p>RUN    apt-get install -y vim</p>
+</blockquote>
+<h5 id="CMD"><a href="#CMD" class="headerlink" title="CMD"></a>CMD</h5><blockquote>
+<p>与 RUN 不同的是，CMD 是在容器启动后执行命令。</p>
+<p>CMD    “ping”</p>
+</blockquote>
+<h5 id="ADD"><a href="#ADD" class="headerlink" title="ADD"></a>ADD</h5><blockquote>
+<p>将宿主机的文件系统复制到容器的文件系统。</p>
+<p>ADD    host/source    docker/destination</p>
+</blockquote>
+<h5 id="COPY"><a href="#COPY" class="headerlink" title="COPY"></a>COPY</h5><blockquote>
+<p>将宿主机的文件系统复制到容器的文件系统。[ COPY 与 ADD 相差不大，前者支持远程资源(URL) ]</p>
+<p>ADD    host/source    docker/destination</p>
+</blockquote>
+<h5 id="ENV"><a href="#ENV" class="headerlink" title="ENV"></a>ENV</h5><blockquote>
+<p>指定当前容器的环境变量</p>
+<p>ENV    PHP_VERSION    5.3</p>
+</blockquote>
+<h5 id="VOLUME"><a href="#VOLUME" class="headerlink" title="VOLUME"></a>VOLUME</h5><blockquote>
+<p>把你的磁盘上的数据挂载到容器的挂载点上，这个修改了宿主机文件直接反映到容器里面。</p>
+<p>VOLUME    host/dir    docker/dir</p>
+</blockquote>
+<h5 id="EXPOSE"><a href="#EXPOSE" class="headerlink" title="EXPOSE"></a>EXPOSE</h5><blockquote>
+<p>将容器内暴露给外部的端口</p>
+<p>EXPOSE    22</p>
+</blockquote>
+<p>以上介绍的就是用的频率比较频繁的 Dockerfile 指令了，更多指令请查阅官网。</p>
 
     </article>
     <!-- 前后页  -->
     <ul class="post-pager">
         
-            <li class="next">
-                <a href= "/2018/01/15/http升级https的坑/" title= http升级https的坑 >
-                    <span>Next Post</span>
-                    <span>http升级https的坑</span>
-                </a>
-            </li>
-        
         
             <li class="previous">
-                <a href= "/2017/12/24/Docker初探/" title= Docker初探 >
+                <a href= "/2018/10/15/PHP简单的并行网络请求/" title= PHP简单的并行网络请求 >
                     <span>Previous Post</span>
-                    <span>Docker初探</span>
+                    <span>PHP简单的并行网络请求</span>
                 </a>
             </li>
         
@@ -261,7 +275,7 @@
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        
+        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#FROM"><span class="toc-number">1.</span> <span class="toc-text"><a href="#FROM" class="headerlink" title="FROM"></a>FROM</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#RUN"><span class="toc-number">2.</span> <span class="toc-text"><a href="#RUN" class="headerlink" title="RUN"></a>RUN</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#CMD"><span class="toc-number">3.</span> <span class="toc-text"><a href="#CMD" class="headerlink" title="CMD"></a>CMD</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#ADD"><span class="toc-number">4.</span> <span class="toc-text"><a href="#ADD" class="headerlink" title="ADD"></a>ADD</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#COPY"><span class="toc-number">5.</span> <span class="toc-text"><a href="#COPY" class="headerlink" title="COPY"></a>COPY</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#ENV"><span class="toc-number">6.</span> <span class="toc-text"><a href="#ENV" class="headerlink" title="ENV"></a>ENV</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#VOLUME"><span class="toc-number">7.</span> <span class="toc-text"><a href="#VOLUME" class="headerlink" title="VOLUME"></a>VOLUME</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#EXPOSE"><span class="toc-number">8.</span> <span class="toc-text"><a href="#EXPOSE" class="headerlink" title="EXPOSE"></a>EXPOSE</span></a></li></ol>
     </div>
     
     <div class="back-top">&#xe639;</div>

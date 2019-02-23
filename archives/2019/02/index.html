@@ -149,72 +149,14 @@
     
     
         <article class="index-post">
-            <a class="content-show-full" href = "/2018/06/23/跨域的几种解决方案/" >
+            <a class="content-show-full" href = "/2019/02/23/Swoole简易的并发网络请求/" >
                     <h2 class="abstract-title">
                         
-                        <span>跨域的几种解决方案</span>
+                        <span>Swoole简易的并发网络请求</span>
                     </h2>
                 <div class="abstract-content">
-                    跨域造成跨域请求的场景大体分为以下几种：
-
-
-
-示例
-原因
-
-
-
-
-http://www.a.com/a.js http://www.b.com/b.js
-不同域名
-
-
-http://www.a.com/a.js http://mail.a.com/b.js
-不同子域名(可归于上一类)
-
-
-http://www.a.com:8000/a.js http://www.a.com:8001/b.js
-不同端口
-
-
-http://www.a.com/a.js https://www.a.com/b.js
-不同协议
-
-
-
-当站点 a Ajax 请求站点 b b.js 中的资源时，以上的场景都会出...
-                </div>
-            </a>
-            <div class="abstract-post-meta">
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-href = javascript>javascript</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-href = nginx>nginx</a>
-    
-</div>
-                
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer"></span><span class="abstract-time">2018/06/23</span>
-                </div>
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="content-show-full" href = "/2018/01/15/http升级https的坑/" >
-                    <h2 class="abstract-title">
-                        
-                        <span>http升级https的坑</span>
-                    </h2>
-                <div class="abstract-content">
-                    今天帮一位老哥把一个H5移动端项目上线做测试时，页面上有许多广告，老哥很不爽，说能升级一下协议，弄成https吗，答曰：行。捣鼓一阵后，chrome上绿色的小锁看着，还是舒服啊~~~。但是打开网站一看，什么鬼，之前的API请求失败！！！什么原因？打开控制台一看，报了如下错误：
-
-Mixed Content: The page at ‘xxxx’ was loaded over HTTPS, but requested an insecure script ‘xxxx’. This request has been blocked; the content must be served o...
+                    接上篇文章，这次用 Swoole 来实现，其有两种方式，具体来看代码。
+setDefer123456789101112131415161718192021222324252627282930313233343536373839404142434445464748&lt;?php$server = new swoole_http_server("0.0.0.0", 9501, SWOOLE_BASE);$server-&gt;on('request', function ($request, $response) &#123;    $start = microtime(true);   ...
                 </div>
             </a>
             <div class="abstract-post-meta">
@@ -224,13 +166,13 @@ Mixed Content: The page at ‘xxxx’ was loaded over HTTPS, but requested an in
     
         <a class="post-tag" href="javascript:void(0);" data-href = php>php</a>
     
-        <a class="post-tag" href="javascript:void(0);" data-href = javascript>javascript</a>
+        <a class="post-tag" href="javascript:void(0);" data-href = swoole>swoole</a>
     
 </div>
                 
                 <!-- date  -->
                 <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer"></span><span class="abstract-time">2018/01/15</span>
+                    <span class="abstract-calander iconfont-archer"></span><span class="abstract-time">2019/02/23</span>
                 </div>
             </div>
         </article>
